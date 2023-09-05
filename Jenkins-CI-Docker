@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Cloning Git'){
             steps {
-                checkout scm "https://github.com/DevSumu97/Sonar-11Devops.git"
+                checkout scm 
             }
         }
         stage('Quality Gate'){
@@ -44,8 +44,8 @@ pipeline {
             steps {
                 script{
                   docker.withRegistry( registry_url, registryCredential ) {
-            dockerImage.push("${env.BUILD_NUMBER}")
-            dockerImage.push("latest")
+                  dockerImage.push("${env.BUILD_NUMBER}")
+                  dockerImage.push("latest")
                   }
                 }
             }
