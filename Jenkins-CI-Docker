@@ -8,6 +8,7 @@ pipeline {
     tools {
         maven 'Apache-Maven-3.8.4'
     }
+    stages {
         stage('Cloning Git'){
             steps {
                 checkout scm 
@@ -17,6 +18,7 @@ pipeline {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQubeserver') { 
                 sh 'mvn clean package sonar:sonar' 
+                }
             }
         }
         stage('Quality Gate'){
