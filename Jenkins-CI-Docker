@@ -2,8 +2,7 @@ pipeline {
   agent any 
   environment {
     dockerimagename = "elevendevops/myelevendevopsimage"
-    registry_url = "https://hub.docker.com/u/anand1957"
-    registryCredential = 'docker-hub-cred'
+    REGISTRY_CREDS = 'docker-hub-cred'
     }
     tools {
         maven 'Apache-Maven-3.8.4'
@@ -36,16 +35,16 @@ pipeline {
         stage('Building image'){
             steps {
                 script{
-                  dockerImage = docker.build dockerimagename
+                  dockerImage = docker.build "$dockerimagename"
                 }
             }
         }
         stage('Pushing Image'){
             steps {
                 script{
-                  docker.withRegistry( registry_url, registryCredential ) {
-                  dockerImage.push("${env.BUILD_NUMBER}")
-                  dockerImage.push("latest")
+                  docker.withRegistry('', REGISTRY_CREDS ){
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                        docker_image.push('latest')
                   }
                 }
             }
