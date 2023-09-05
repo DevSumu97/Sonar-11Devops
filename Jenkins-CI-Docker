@@ -2,19 +2,12 @@ pipeline {
   agent any 
   environment {
     dockerimagename = "elevendevops/myelevendevopsimage"
+    registry_url ="https://anand1957.hub.docker.com"
     REGISTRY_CREDS = 'docker-hub-cred'
     }
     tools {
         maven 'Apache-Maven-3.8.4'
     }
-    stages {
-        stage('Cleanup Workspace'){
-            steps {
-                script {
-                    cleanWs()
-                }
-            }
-        }
         stage('Cloning Git'){
             steps {
                 checkout scm 
